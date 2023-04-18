@@ -11,6 +11,9 @@ Vue.use(ElementUI);
 import './assets/normalize.css';
 Vue.use(plugins)
 
+import directives from './directives'
+Vue.use(directives)
+
 import Axios from 'axios';
 
 

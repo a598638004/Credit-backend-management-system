@@ -33,15 +33,16 @@ request.interceptors.response.use(
     response => {
         // 保存token
         // loadingInstance.close();
-        if (response.loadingTag) {store.commit(`set${config.loadingTag}`,false);}
+        if (response.config.loadingTag) {store.commit(`set${response.config.loadingTag}`,false);}
         const token = response?.data?.data?.token;
         if (token) {
             window.sessionStorage.setItem("token", token);
         }
         // 603 代表token失效, 处理跳转到权限不足页面
-        console.log(response,'res')
+        // console.log(response,'res')
 
         if (response?.data?.code === 20000) {
+            if (typeof response?.data?.data === 'string')
             Message.success(response.data.data);
             return response;
         }

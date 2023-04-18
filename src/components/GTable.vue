@@ -4,11 +4,15 @@ export default {
   props: {
     options: {
       type: Object,
-      default: () => this.gOptions,
+      default() {
+        return this.gOptions;
+      },
     },
     pageOptions: {
       type: Object,
-      default: () => this.pageOptions,
+      default() {
+        return this.gPageOptions;
+      },
     },
     data: {
       type: Array,
@@ -32,7 +36,7 @@ export default {
       // multiSelect:true, // 第一列复选框
       // index:true, // 第一列是行号
       gOptions: {
-        height: 400, // 表格高度
+        // height: 600, // 表格高度
         stripe: true, // 是否为斑马纹 table
         border: false, // 是否带有纵向边框
         fit: true, // 列宽度撑开,
@@ -64,14 +68,14 @@ export default {
         columns,
         g_options,
         data,
-				loadingTag,
+        loadingTag,
         $store: {
           state: { loadings },
         },
       } = this;
       const { useIndex } = g_options;
       const { useMultiSelect } = g_options;
-			console.log(loadings)
+      // console.log(loadings);
       // jsx中的指令使用v-loading.gbox="true"
       const directives = [
         {
@@ -82,14 +86,37 @@ export default {
           // value:g_options.loading
           value: loadings[loadingTag],
         },
+        {
+          name: "drag",
+        },
       ];
       return (
-        <el-table id="gbox" data={data} attrs={g_options}>
+        <el-table
+          id="gbox"
+          onSelection-change={(e) => this.$emit("selection-change", e)}
+          data={data}
+          attrs={g_options}
+          {...{ directives }}
+        >
           {useIndex && this.renderIndex()}
           {useMultiSelect && this.renderMultiSelect()}
-          {this.renderTableColumns(columns)}
+          {/* {this.renderTableColumns(columns)} */}
 
-          {/*<GColumn scopedSlots={ this.$scopedSlots } columns={columns}/>*/}
+          {
+            {
+              /* TODO */
+            }
+          }
+          {columns &&
+            columns.map((column, i) => {
+              return (
+                <GColumn
+                  key={i}
+                  column={column}
+                  scopedSlots={this.$scopedSlots}
+                />
+              );
+            })}
         </el-table>
       );
     },
@@ -112,27 +139,26 @@ export default {
         ></el-table-column>
       );
     },
-    renderTableColumns(columns) {
-      return columns.map((col, i) => {
-        return (
-          <el-table-column
-            key={i}
-            label={col.label}
-            prop={col.prop}
-            width={col.width}
-          >
-            {col.children &&
-              col.children.length > 0 &&
-              this.renderTableColumns(col.children)}
-          </el-table-column>
-        );
-      });
-    },
+    // renderTableColumns(columns) {
+    //   return columns.map((col, i) => {
+    //     return (
+    //       <el-table-column
+    //         label={col.label}
+    //         prop={col.prop}
+    //         width={col.width}
+    //       >
+    //         {col.children &&
+    //           col.children.length > 0 &&
+    //           this.renderTableColumns(col.children)}
+    //       </el-table-column>
+    //     );
+    //   });
+    // },
     renderPagination(options) {
       // jsx中@size-change形式修改为onSize-change
       return (
         <el-pagination
-          onSize-change="handleSizeChange"
+          onSize-change={(e) => this.$emit("size-change", e)}
           onCurrent-change={this.handleCurrentChange}
           attrs={options}
           layout="total, sizes, prev, pager, next, jumper"

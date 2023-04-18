@@ -3,6 +3,7 @@ import GBreadcrumb from '@/components/GBreadcrumb';
 import GDropdown from '@/components/GDropdown';
 import GFormCreator from '@/components/GFormCreator';
 import GTable from '@/components/GTable';
+import GColumn from '@/components/GColumn';
 
 
 // 自动引动 require.context('../components/xxx',true,/\.vue$/)
@@ -14,6 +15,7 @@ function install(Vue) {
     Vue.component(GDropdown.name, GDropdown);
     Vue.component(GFormCreator.name, GFormCreator);
     Vue.component(GTable.name, GTable);
+    Vue.component(GColumn.name, GColumn);
 }
 
 export default {

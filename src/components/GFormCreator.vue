@@ -169,8 +169,10 @@ export default {
 };
 </script>
 
-
 <style lang="scss" scoped>
+.el-select,.el-input {
+    width: 100%;
+}
 .btns {
   text-align: center;
 }
