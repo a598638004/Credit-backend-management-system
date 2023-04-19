@@ -44,16 +44,21 @@ request.interceptors.response.use(
         if (response?.data?.code === 20000) {
             if (typeof response?.data?.data === 'string')
             Message.success(response.data.data);
+            if (typeof response?.data?.data?.info === 'string')
+            Message.success(response.data.data.info);
             return response;
-        }
-
-        if (response?.data?.code === 603) { // token失效
+        }else if (response?.data?.code === 603) { // token失效
             Notification.error({
                 title: '错误',
                 message: 'token失效,请重新登录'
             });
             // 替换到401页面
             router.replace('/401');
+        }else{
+            Notification.error({
+                title: '错误',
+                message: '请求失败'
+            }); 
         }
 
         return response;

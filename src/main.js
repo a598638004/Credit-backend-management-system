@@ -14,6 +14,13 @@ Vue.use(plugins)
 import directives from './directives'
 Vue.use(directives)
 
+// 安装常用功能
+import common from '@/common';
+Vue.use(common);
+
+import filters from '@/filters';
+Vue.use(filters);
+
 import Axios from 'axios';
 
 

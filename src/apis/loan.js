@@ -15,3 +15,29 @@ export const queryLoan = (params,customField)=>{
         ...customField
     })) 
 }
+
+export const saveLoan = (data)=>{
+    return pretty(request({
+        url:'/loan/update',
+        method:'put',
+        data:data
+    })) 
+}
+// /loan/delete/:id
+export const deleteLoan = (id)=>{
+    return pretty(request({
+        url:'/loan/delete/' + id,
+        method:'delete',
+    })) 
+}
+
+// 提交
+export const submitApprove = id =>{
+    return pretty(request({
+        url:'/loan/submitToApprove',
+        method:'post',
+        data:{
+            id
+        }
+    })) 
+}

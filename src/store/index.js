@@ -29,7 +29,8 @@ modulesFn.keys().forEach(filepath => {
 export default new Vuex.Store({
   state: {
     loadings:{
-      tab1:false
+      tab1:false,
+      tab2:false
     }
   },
   getters: {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     // 某一个开关的loading状态改变
     settab1({loadings},payload){
       loadings.tab1 = payload;
+    },
+    settab2({loadings},payload){
+      loadings.tab2 = payload;
     }
   },
   actions: {

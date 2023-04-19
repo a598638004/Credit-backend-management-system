@@ -14,15 +14,18 @@ export default {
         },
         {
             label: "出生日期",
-            prop: "birthday"
+            prop: "birthday",
+            slot: "birthday",
         },
         {
             label: "性别",
-            prop: "sex"
+            prop: "sex",
+            slot: "sex"
         },
         {
             label: "教育程度",
-            prop: "education"
+            prop: "education",
+            slot: "education"
         },
         {
             label: "居住地址",

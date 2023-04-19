@@ -15,10 +15,35 @@
       @selection-change="onSelectionChange"
       loadingTag="tab1"
     >
+
+    <template v-slot:birthday="col">
+        <el-table-column width= "200" :prop="col.prop" :label="col.label">
+          <template v-slot="{ row }">
+            <span>{{ row.birthday | birthday }}</span>
+          </template>
+        </el-table-column>
+      </template>
+
+      <template v-slot:sex="col">
+        <el-table-column :prop="col.prop" :label="col.label">
+          <template v-slot="{ row }">
+            <span>{{ row.sex | sex }}</span>
+          </template>
+        </el-table-column>
+      </template>
+
+      <template v-slot:education="col">
+        <el-table-column :prop="col.prop" :label="col.label">
+          <template v-slot="{ row }">
+            <span>{{ row.education | education }}</span>
+          </template>
+        </el-table-column>
+      </template>
+
       <template v-slot:status="col">
         <el-table-column :prop="col.prop" :label="col.label">
           <template v-slot="{ row }">
-            <el-tag type="success">{{ row.status }}</el-tag>
+            <el-tag :type="row.status | statusColor">{{ row.status | status }}</el-tag>
           </template>
         </el-table-column>
       </template>
@@ -29,8 +54,10 @@
             <el-button type="primary" @click="($event) => showEdit(row)"
               >编辑</el-button
             >
-            <el-button type="danger">删除</el-button>
-            <el-button type="success">提交审核</el-button>
+            <el-button type="danger" @click="delLoan(row.id)">删除</el-button>
+            <el-button type="success" @click="submit(row.id)"
+              >提交审核</el-button
+            >
           </template>
         </el-table-column>
       </template>
@@ -50,7 +77,7 @@
         :conf="editConf"
         @submit="save"
       ></GFormCreator> </el-dialog
-    >>
+    >
   </div>
 </template>
 
@@ -60,6 +87,7 @@ import GSearchQuery from "@/components/GSearchQuery.vue";
 import { crud, pager } from "@/mixins";
 import GFormCreator from "@/components/GFormCreator.vue";
 import { sexOptions } from "@/conf";
+import { saveLoan, deleteLoan, submitApprove } from "@/apis/loan";
 
 export default {
   mixins: [crud, pager],
@@ -71,6 +99,7 @@ export default {
       dialogVisible: false,
       exist: false,
       query: "",
+      editingId: 0,
     };
   },
   methods: {
@@ -85,6 +114,7 @@ export default {
       return true;
     },
     showEdit(row) {
+      this.editingId = row.id;
       this.editConf = {
         items: [
           [
@@ -114,14 +144,34 @@ export default {
       };
       this.dialogVisible = true;
     },
-    save(data) {
+    async save(data) {
       console.log("保存数据", data);
+      this.dialogVisible = false;
+      let [res, err] = await saveLoan({
+        ...data,
+        id: this.editingId,
+      });
+      if (err) return this.message.error("请求失败");
       this.dialogVisible = false;
       this.$notify.success({
         title: "提示",
         message: "编辑成功",
-        showClose: false,
       });
+      // 列表更新
+      this.init();
+    },
+    async delLoan(id) {
+      let isConfirm = await this.confirm("是否确认删除数据?");
+      if (!isConfirm) return;
+      let [res, err] = await deleteLoan(id);
+      this.init();
+    },
+    async submit(id) {
+      let isSubmit = await this.confirm("是否确认提交申请");
+      if (!isSubmit) return;
+      let [res, err] = await submitApprove(id);
+      if (err) return;
+      this.init();
     },
   },
   created() {

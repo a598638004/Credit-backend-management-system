@@ -7,6 +7,10 @@ export default {
       required: true,
       type: Object,
     },
+    nonCheck: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -15,7 +19,7 @@ export default {
   },
   created() {
     const { items, rules, cards } = this.conf;
-    if (!rules) throw new Error("请传入表单校验规则");
+    if (!this.nonCheck && !rules) throw new Error("请传入表单校验规则");
     this.rulesHandler(rules);
     if (items) {
       this.reaciveFileds(items);
@@ -46,12 +50,12 @@ export default {
         case "password":
         case "textarea":
           return (
-            <el-input type={item.type} v-model={this.form[item.key]}></el-input>
+            <el-input attrs={item.attrs} type={item.type} v-model={this.form[item.key]}></el-input>
           );
         case "radio":
           return item.options.map((opt, i) => {
             return (
-              <el-radio key={i} v-model={this.form[item.key]} label={opt.label}>
+              <el-radio attrs={item.attrs} key={i} v-model={this.form[item.key]} label={opt.label}>
                 {opt.text}
               </el-radio>
             );
