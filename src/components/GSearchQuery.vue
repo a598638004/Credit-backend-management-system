@@ -23,7 +23,7 @@ export default {
     query: debounce(function (newVal) {
       // this.loadLoanByPage(1)
       if (this.$scopedSlots.default) return;
-      this.$emit("setQueryName", newVal);
+      this.$emit("setValue", newVal);
     }, 500),
   },
 };

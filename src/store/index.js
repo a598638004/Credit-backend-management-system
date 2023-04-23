@@ -26,25 +26,26 @@ modulesFn.keys().forEach(filepath => {
   }
 })
 
-export default new Vuex.Store({
+const initStore = {
   state: {
     loadings:{
-      tab1:false,
-      tab2:false
+  
     }
-  },
-  getters: {
   },
   mutations: {
-    // 某一个开关的loading状态改变
-    settab1({loadings},payload){
-      loadings.tab1 = payload;
-    },
-    settab2({loadings},payload){
-      loadings.tab2 = payload;
-    }
   },
   actions: {
   },
-  modules
-})
+  modules:modules
+};
+
+const tabCount = 20;
+// 批量添加tab
+for(let i = 1;i< tabCount;i++) {
+  initStore.state.loadings['tab' +i] = false;
+  initStore.mutations['settab' + i] = function({loadings},payload) {
+    loadings['tab'+i] = payload
+  }
+}
+
+export default new Vuex.Store(initStore)

@@ -77,6 +77,33 @@ function install(Vue) {
         }
     })
 
+    Vue.filter("contractText", status => {
+        if(status > 5){
+            return "已生成合同"
+        }else{
+            return "未生成合同"
+        }
+    })
+
+    Vue.filter('contractColor',(status)=>{
+        if (status > 5) {
+            return 'success'
+        } else {
+            return 'primary'
+        }
+    });
+
+    Vue.filter('role',(type)=>{
+        switch(type){
+            case 'input':
+                return '录入专员';
+            case 'administrator':
+                return '管理员';
+            case 'approve':
+                return '审批专员'
+        }
+    });
+
 }
 
 export default {

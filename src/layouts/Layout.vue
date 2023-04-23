@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="200px">
+    <el-aside width="240px">
       <el-menu
         router
         default-active="2"
@@ -54,7 +54,7 @@ export default {
     }),
     async doCommand(e) {
       if (e === "logout") {
-        let [res, err] = await this.doLogout();
+        await this.doLogout();
         // 外部没有依赖里面的值
         // 依赖的是执行顺序
         window.location.reload();
@@ -64,19 +64,19 @@ export default {
 };
 </script>
 
-<style>
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-}
+<style scoped>
 .el-header {
-  background-color: #568bc9;
+  /* background-color: #568bc9; */
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
 }
 
 .el-aside {
@@ -92,17 +92,15 @@ export default {
   text-align: center;
 }
 
-body > .el-container {
-  margin-bottom: 40px;
+.el-container {
+    height: 100%;
+}
+.el-menu-vertical-demo {
+    border:none;
+}
+
+.el-menu{
+  /* width: 240px; */
   height: 100%;
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
 }
 </style>

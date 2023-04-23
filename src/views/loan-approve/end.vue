@@ -22,8 +22,8 @@
         <el-table-column :label="col.label" :width="col.width">
           <template v-slot="{ row }">
             <el-button @click="showInfo(row)" type="primary">查看</el-button>
-            <el-button @click="pass(row.id)" type="success">通过</el-button>
-            <el-button @click="reject(row.id)" type="danger">拒绝</el-button>
+            <el-button type="success">通过</el-button>
+            <el-button type="danger">拒绝</el-button>
           </template>
         </el-table-column>
       </template>
@@ -46,9 +46,9 @@
 <script>
 import conf from "./conf";
 import { pager, crud } from "@/mixins";
-import { convertBirthday } from "@/filters";
-import { approveFirstPass, approveFirstReject } from "@/apis/loan"
+// import { convertBirthday } from '@/filters';
 import Vue from "vue";
+import { approveEndPass, approveEndReject } from "@/apis/loan"
 export default {
   mixins: [pager, crud],
   methods: {
@@ -91,23 +91,23 @@ export default {
       };
     },
     beforeInit() {
-      this.url = "/approve/first/list";
+      this.url = "/approve/end/list";
       this.customField = {
         loadingTag: this.loadingTag,
       };
       return true;
     },
     async pass(id) {
-        if(!await this.confirm('是否确认初审通过'))  return 
-        let [res, err] = await approveFirstPass(id)
-        if(!res) return 
-        this.init()
+      if (!(await this.confirm("是否确认初审通过"))) return;
+      let [res, err] = await approveEndPass(id);
+      if (!res) return;
+      this.init();
     },
     async reject(id) {
-        if(!await this.confirm('是否确认初审拒绝'))  return 
-        let [res, err] = await approveFirstReject(id)
-        if(!res) return 
-        this.init()
+      if (!(await this.confirm("是否确认初审拒绝"))) return;
+      let [res, err] = await approveEndReject(id);
+      if (!res) return;
+      this.init();
     },
   },
   created() {
@@ -116,7 +116,7 @@ export default {
   data() {
     return {
       conf: conf,
-      loadingTag: "tab2",
+      loadingTag: "tab7",
       tableData: [],
       dialogVisible: false,
       editConf: {},

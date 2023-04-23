@@ -15,7 +15,7 @@ export default {
         {
             label: "出生日期",
             prop: "birthday",
-            slot: "birthday",
+            slot: "birthday", 
         },
         {
             label: "性别",

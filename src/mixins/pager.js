@@ -34,7 +34,7 @@ export default {
         setQueryName(query) {
             this.query = query;
             this.currentPage = 1;
-            this.loadLoanByPage();
+            this.init()
         },
         setTotal(total){
             this.total = total; 

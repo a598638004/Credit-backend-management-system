@@ -9,12 +9,12 @@ export default {
             prop: "name",
             // width:"20",
         },
-        {
-            label: "出生日期",
-            prop: "birthday",
-            slot:'birthday',
-        },
         { label: "身份证", prop: "identity_card",disabled: true },
+        {
+            label: "合同状态",
+            prop: "status",
+            slot: "status"
+        },
         {
             label: "操作",
             width: 1000,

@@ -101,6 +101,20 @@ export default {
       this.$refs.ruleForm.resetFields();
     },
   },
+  mounted(){
+    this.enterLogin = (e) => {
+      console.log("事件出发了")
+      if(e.key === "Enter"){
+        // 兼容小键盘enter
+        this.doLogin(this.ruleForm);
+      }
+    }
+    window.addEventListener('keypress', this.enterLogin)
+  },
+  beforeDestroy(){
+    console.log("事件被销毁了");
+    window.removeEventListener('keypress', this.enterLogin)
+  }
 };
 </script>
 
