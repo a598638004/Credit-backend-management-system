@@ -90,6 +90,7 @@ import { sexOptions } from "@/conf";
 import { saveLoan, deleteLoan, submitApprove } from "@/apis/loan";
 
 export default {
+  name: 'input-manager',
   mixins: [crud, pager],
   data() {
     return {

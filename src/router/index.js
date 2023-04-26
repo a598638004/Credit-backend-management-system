@@ -129,6 +129,13 @@ router.beforeEach((to, from, next) => {
       // 没有路由给你看, 加载路由
       return loadMenus(next, to)
     } else {
+      // 保存当前的to作为tags缓存
+      console.log(to, 'to');
+      if (to.name)
+      store.commit('user/addTag', {
+        title: to?.meta?.title,
+        compName: to.name
+      })
       return next(); // 有菜单
     }
 

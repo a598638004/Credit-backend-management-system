@@ -1,4 +1,4 @@
-export default {
+export default Object.freeze({
     options: {
         useIndex: false,
         useMultiSelect: false,
@@ -28,4 +28,4 @@ export default {
         },
 
     ] // column的配置
-}
+})

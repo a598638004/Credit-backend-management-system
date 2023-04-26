@@ -1,4 +1,5 @@
 <template>
+  <!-- vue-fragment 解决dom -->
   <div id="approve">
     <GSearchQuery @setValue="setQueryName"></GSearchQuery>
     <GTable
@@ -48,6 +49,7 @@ import { pager, crud } from "@/mixins";
 import { genContractFile, downloadContract } from "@/apis/loan";
 import { downloadFile } from "@/utils";
 export default {
+  name: 'contract',
   mixins: [pager, crud],
   methods: {
     beforeInit() {
@@ -70,6 +72,7 @@ export default {
       console.log(res, "下载文件的url");
       // 再次发起请求获取文件, 并实现下载
       let url = res?.data?.data?.url;
+      if(!url) return;
       // 为了使用之前配置的baseUrl:'/api' 干掉/api
       await downloadFile(url.replace("/api", ""), "贷款合同-" + id + ".docx");
     },

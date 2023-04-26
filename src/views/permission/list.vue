@@ -33,10 +33,8 @@
   <script>
   import conf from "./conf";
   import { pager, crud } from "@/mixins";
-  import { convertBirthday } from "@/filters";
-  import { approveFirstPass, approveFirstReject } from "@/apis/loan"
-  import Vue from "vue";
   export default {
+    name: 'permission-list',
     mixins: [pager, crud],
     methods: {
       beforeInit() {

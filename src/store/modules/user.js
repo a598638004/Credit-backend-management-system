@@ -5,7 +5,8 @@ export default {
     state: {
         isLogin: false,
         userInfo: null,
-        userMenus: null // 用户路由菜单
+        userMenus: null, // 用户路由菜单
+        cachedTags:[]
     },
     getters: {
         getIsLogin(state) {
@@ -16,9 +17,30 @@ export default {
         },
         getUserMenus(state) {
             return state.userMenus;
+        },
+        getTags(state){
+            return state.cachedTags;
         }
     },
     mutations: {
+        delTag(state,tag) {
+            // 判断原来是否存在,不存在才添加
+            let index = state.cachedTags.findIndex(t=>{
+               return tag.compName === t.compName
+           });
+           if (index !== -1) {
+               state.cachedTags.splice(index,1);
+           }
+       },
+       addTag(state,tag) {
+           // 判断原来是否存在,不存在才添加
+           let findTag = state.cachedTags.find(t=>{
+               return tag.compName === t.compName
+           });
+           if (!findTag) {
+               state.cachedTags.push(tag);
+           }
+       },
         changeIsLogin(state, payload) {
             state.isLogin = payload
         },

@@ -50,6 +50,7 @@ import { convertBirthday } from "@/filters";
 import { approveFirstPass, approveFirstReject } from "@/apis/loan"
 import Vue from "vue";
 export default {
+  name: 'loan-approve-first',
   mixins: [pager, crud],
   methods: {
     showInfo(row) {

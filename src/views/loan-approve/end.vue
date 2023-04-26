@@ -49,7 +49,9 @@ import { pager, crud } from "@/mixins";
 // import { convertBirthday } from '@/filters';
 import Vue from "vue";
 import { approveEndPass, approveEndReject } from "@/apis/loan"
+
 export default {
+  name: 'loan-approve-end',
   mixins: [pager, crud],
   methods: {
     showInfo(row) {
@@ -58,7 +60,7 @@ export default {
       let filterFn1 = Vue.filter("birthday");
       let filterFn2 = Vue.filter("sex");
       let filterFn3 = Vue.filter("education");
-      this.editConf = {
+      this.editConf = Object.freeze({
         items: [
           [{ key: "id", label: "id", value: row.id }],
           [{ key: "name", label: "姓名", value: row.name }],
@@ -88,7 +90,7 @@ export default {
             attrs: { disabled: true },
           }))
         ),
-      };
+      });
     },
     beforeInit() {
       this.url = "/approve/end/list";

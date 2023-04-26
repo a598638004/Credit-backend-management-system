@@ -13,6 +13,7 @@
 import inputConf from "./inputPageConf";
 import { createLoan } from "@/apis/loan"
 export default {
+  name: 'loan-input',
   data() {
     return {
       inputConf,

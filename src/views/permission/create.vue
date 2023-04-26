@@ -14,6 +14,7 @@
 import createConf from "./createFormConf";
 import {createUser} from "@/apis/user";
 export default {
+  name: 'permission-create',
   data() {
     return {
       createConf,

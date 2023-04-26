@@ -1,4 +1,4 @@
-export default {
+export default Object.freeze({
     options: {
         // height: 750,
         loading: true,
@@ -76,4 +76,4 @@ export default {
         }   */
          
     ] // column的配置
-}
+})
